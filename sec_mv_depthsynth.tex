@@ -1,0 +1,55 @@
+\subsection{Iterative Multi-View Depth Synthesis}
+
+\TODO{Make this sound less incremental w.r.t \cite{ODD15} and \cite{chaurasia13}}
+
+Previous depth synthesis for IBR ~\cite{chaurasia13} was performed individually for each input image;
+while this can give good results in some cases, in many others the depth assigned to superpixels
+is inconsistent between views. This results in large popping artifacts when the algorithm blends
+from one view to another and in ghosting when inconsistent superpixels are blended.
+\TODO{image showing latter}
+
+Synthesizing multi-view consistent depth is not easy: by definition, the superpixels we need
+to treat in each input view are not linked in any way, since no -- by construction -- they do not
+have any depth.
+
+We will pursue the following ideas to solve this problem:
+\begin{enumerate}
+\item We will create neighborhood graphs around the superpixels to be matched in each view, and perform graph-matching between views using MVS constraints in the nodes (superpixels) in the graph that do have reconstruction. We can combine this matching with appearance matching (textons or some other measure), which will give a \emph{percentage match} (in most cases only \emph{part} of the pixels will be shared between any two superpixels). Depth synthesis will be performed in an iterative multi-scale approach. Depth will initialize with per-view depth synthesis, and then links between superpixels in other views will be created. An energy minimization problem will be defined, leading to the solution which has lowest error.
+Quality (error) will be evaluated using the leave-one-out approach of \cite{ODD15}; depth will be updated during the optimization. The plane estimation step will be included before the quality is evaluated.
+\item Inconsistent depth is manifested by abrupt jumps in position of the superpixels corresponding to the same part of an object. Using the matching method above, we will define quality evaluation in time, by moving in paths away from view interpolation, and identifying cases when ``similar'' superpixels move abruptly when switching from one view to another. A (probably) reliable way of doing this is to measure displacement of 3D points, weighted by similarity. This quality metric could directly integrated into the optimization described above.
+\end{enumerate}
+
+During each iteration, the uncertainty of the depth synthesis, planar estimation and possibly also the superpixels will be updated, allowing better quality IBR.
+
+\subsection{Using multiple depth sources}
+
+For any given superpixel, depth is assigned directly using the 3D from 
+a given reconstruction algorithm, with depth synthesis~\cite{chaurasia13} or
+using plane estimation on the point cloud~\cite{ODD15}. Using the coupled synthesis and quality
+estimation above, we can also inject other sources of geometry; the quality
+of this 3D is then directly evaluated using the ``leave-one-out'' quality estimation
+approach~\cite{ODD15}.
+
+A first such source of 3D comes from the improvement in quality in the mesh extraction phase 
+of reconstruction algorithms such as \cite{jancosek2011multi,keriven}. 
+These algorithms are able to ``stretch'' a smooth surface even in regions with sparse or
+poor reconstruction. 
+
+Another source of data includes Google Earth or Bing satelitte reconstructions, which are particularly useful when treating very wide baselines which often cannot be treated well by camera calibration and MVS
+reconstruction. This is the case for example for views
+one can extract from Google Streetview. 
+
+Both sources of 3D can be directly used in the quality estimation step for each superpixel in the
+integrated depth-synthesis/quality evaluation algorithm described above.
+
+%%Iterative multi-view depth synthesis
+%\begin{itemize}
+%\item multi-view constraints on depth synthesis (how ?)
+%\item resynthesis when spixels error is too high in qualeval
+%\item using alternate sources of depth (objects such as cars, streetview / earth fusion)
+%\item see also previous notes on depth synthesis
+%\item motion quality eval
+%\item graph matching
+%\item iterative approach mixing qual eval and depth synth
+%\end{itemize}
+

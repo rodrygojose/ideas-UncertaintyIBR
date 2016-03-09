@@ -1,0 +1,110 @@
+%%% retreat document on VBR
+\documentclass[review]{acmsiggraph}
+
+%%% Make the ``BibTeX'' word pretty...
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\TOGonlineid{XX}
+
+%%% Used by the ``preprint'' variation.
+\TOGvolume{0}
+\TOGnumber{0}
+
+\title{Uncertainty Modeling for Principled Interactive Image-Based Rendering}
+
+\author{ Rodrigo Ortiz-Cayon and Abdelaziz Djelouah and Michael Goesele and George Drettakis}
+\pdfauthor{R. Ortiz-Cayon, A. Djelouah, M. Goesele, G. Drettakis}
+%\keywords{radiosity, global illumination, constant time}
+
+
+
+%% others
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{#1}}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+
+\usepackage{comment}
+
+\begin{document}
+\maketitle
+%%% This is the ``teaser'' command, which puts an figure, centered, below 
+%%% the title and author information, and above the body of the content.
+
+ \teaser{
+%   \includegraphics[height=1.5in]{images/sampleteaser}
+%   \caption{Spring Training 2009, Peoria, AZ.}
+ }
+
+\maketitle
+
+
+%%----------------------------------------------
+%% Abstract 
+%%
+\begin{abstract}
+
+\end{abstract}
+
+%
+\copyrightspace
+
+%%----------------------------------------------
+%% Introduction 
+%%
+\section{Introduction}
+\input{sec_intro}
+
+%% ----------------------------------------------
+%% Related work
+%%
+\section{Related Work}
+\input{sec_related}
+
+%% ----------------------------------------------
+%% Overview -- needed ?
+%%
+%\section{Overview}
+%\input{sec_overview}
+
+%% ----------------------------------------------
+%% Uncertainty Model
+%%
+\section{A Comprehensive Model of Uncertainty}
+\input{sec_uncertainty}
+
+%% ----------------------------------------------
+%% Multi-view Depth
+%%
+\section{Iterative Multi-View Depth Synthesis \label{sec:synth}}
+\input{sec_mv_depthsynth}
+
+%% ----------------------------------------------
+%% Unified IBR 
+%%
+\section{Unified uncertainty aware IBR Algorithm}
+\input{sec_unify_ibr}
+
+%% -----------------------------------------------
+%% Results
+%%
+\section{Results}
+\input{sec_results}
+
+%% -----------------------------------------------
+%% Conclusions
+%%
+\section{Conclusions}
+\input{sec_conclusions}
+
+
+
+
+%% -----------------------------------------------
+%% Bibliography
+%%
+
+\bibliographystyle{acmsiggraph}
+\bibliography{uncertainIBR}
+\end{document}

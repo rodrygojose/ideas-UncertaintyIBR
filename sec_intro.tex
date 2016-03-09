@@ -1,0 +1,49 @@
+%\begin{itemize}
+%\item Interactive IBR faces challenge of uncertainty in badly reconstructed and unreconstructed regions
+%\item Ad-hoc methods, uncertainty not treated in a principled manner, depth synthesis single view, heuristic
+%\item Two classes of IBR, forward efficient and high quality (warp), backprojection, handle uncertainty adhoc low quality or are slow.
+%\end{itemize}
+
+Recent interactive image-based rendering (IBR) methods allow convincing free-viewpoint navigation
+in scenes reconstructed from a small number of images \cite{Eisemann08FT,dibr,chaurasia13,ODD15}.
+Despite impressive advances in recent years, these methods are limited in
+regions of the scene, which are badly or completely unreconstructed.
+Such regions have varying degrees of \emph{uncertainty}, which 
+previous solutions treat with heuristic methods: e.g., using dense matching~\cite{dibr}
+or heuristic depth synthesis~\cite{chaurasia13}. 
+In this paper we propose a principled approach to model uncertainty in IBR, coupled
+with a depth synthesis and a IBR algorithm which build on this model.
+
+The idea of modelling uncertainty goes back to the early days of
+computer vision~\cite{Szeliski}, but tractable and efficient solutions
+have not been developed for interactive IBR. Oversegmentation-based IBR methods achieve
+good performance and quality by \emph{forward warping} regions of the image \cite{Zitnick:2004:viewinterp,chaurasia13},
+but do not include a measure of uncertainty. Uncertainty has recently
+been modeled for more traditional depth-based IBR algorithms \cite{devernay},
+which can be considered as derivatives of the Unstructured Lumigraph~\cite{ULR} and use
+\emph{backprojection} into the input images. However, the cost of this model is high
+and the quality is not always satisfactory, in part because these methods do not use
+oversegmentation to preserve depth boundaries.
+
+Our solution addresses these shortcomings by developing a comprehensive model
+of uncertainty for IBR. We identify all sources of uncertainty throughout the various processing
+stages of modern IBR (calibration, reconstruction, depth synthesis etc.).
+We use this model to introduce an iterative multi-view depth synthesis algorithm,
+with a Bayesian approach to minimize uncertainty. This preprocessing approach is driven by evaluation of
+IBR image quality, and allows fusion of multiple sources of 3D information.
+The resulting model of uncertainty 
+allows us to develop an IBR algorithm that combines the advantages of  
+oversegmentation based forward warping and principled ULR-style backprojection,
+notably allowing the use of information from more cameras while maintaining the performance
+advantages of forward warping. Finally, we show how to provide plausible 
+stereoscopic rendering for regions such as vegetation which can be considered volumetric.
+
+Our contributions are thus:
+\begin{itemize}
+\item A comprehensive model of uncertainty for interactive IBR.
+\item A principled iterative multi-view depth synthesis algorithm, which builds on and informs the uncertainty model.
+\item A unified IBR algorithm, which provides a good quality/speed tradeoff by combining the advantages of forward warping and depth-based backprojection algorithms and includes plausible stereoscopic rendering for unreconstructed volumetric regions.
+\end{itemize}
+Our results show significant improvement over recent algorithms for scenes with poor reconstruction,
+allowing the user to move much further from the input viewpoints with the same number of input images.
+

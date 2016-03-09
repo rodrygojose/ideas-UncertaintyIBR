@@ -1,0 +1,50 @@
+The IBR processing involves several steps: camera calibration, reconstruction, oversegmentation 
+and depth synthesis. 
+Each of these steps treats and generates \emph{uncertain data}, possibly coming from multiple sources.
+Our goal is to define a model for this uncertainty that will be used to provide a principled
+IBR algorithm.
+
+In this work, we chose to consider the first two purely computer vision steps,
+i.e., camera calibration and reconstruction, as given. Our model will build on the
+data these steps provide, but will not affect these algorithms. The main reason
+for this is that calibration and reconstruction often have goals other than image
+rendering, e.g., modelling, measurements, fabrication etc. In contrast all subsequent
+steps for IBR, e.g., depth synthesis \cite{chaurasia13}, or Bayesian algorithm
+labels \cite{ODD15} are specifically targeted to rendering. Consequently
+we propose new solutions for these steps, which are tightly integrated with
+our uncertainty model.
+
+We will model uncertainty of various quantities used in IBR, namely 3D reconstructed points,
+superpixels\cite{slic12}, synthesized depth \cite{chaurasia13} and estimated planes ~\cite{ODD15},
+including the influence of each quantity on each other.
+\begin{comment}
+Or a abstract model that includes the effect of all uncertainties. 
+\end{comment}
+
+For 3D reconstructed points we will use the estimation of an ``uncertainty volume''
+around the reconstructed parts of the scene, following~\cite{devernay}.
+\TODO{give some detail}
+
+For superpixels, we will evaluate how well the oversegmentation algorithm has captured
+depth. Even though this oversegmentation is a general approach, our quality criteria
+for superpixels are specifically guided by rendering quality. 
+\TODO{Possible measures of quality involve uniformity of depth in a superpixel,
+some measure of compactness. Other ?}
+ 
+For depth synthesis and plane estimation quality, we will then use ``leave-one-out'' 
+quality evaluation~\cite{ODD15}, during
+our iterative multi-view depth synthesis (see Sec.~\ref{sec:synth}).
+We define the model here, noting the quantities which are iteratively
+updated during depth synthesis. \TODO{do this}
+
+The representation is compact and efficient. \TODO{Will be developed iteratively as
+the method becomes more precise.}
+
+%\begin{itemize}
+%\item reconstruction *(Pujades)
+%\item depth synthesis
+%\item depth resynthesis
+%\item plane estimation
+%\item compact and efficuient representation
+%\end{itemize}
+
